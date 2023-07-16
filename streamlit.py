@@ -1,6 +1,5 @@
 import streamlit as st
 import os
-import openai
 from langchain.chat_models import ChatOpenAI
 from langchain.chains import GraphCypherQAChain
 from langchain.graphs import Neo4jGraph
@@ -14,8 +13,6 @@ openai_api_key = os.getenv("OPENAI_API_KEY")
 neo4j_username = os.getenv("NEO4J_USERNAME")
 neo4j_password = os.getenv("NEO4J_PASSWORD")
 
-# Set OpenAI API key
-openai.api_key = openai_api_key
 
 # Create Neo4jGraph using environment variables
 graph = Neo4jGraph(
@@ -25,7 +22,7 @@ graph = Neo4jGraph(
 )
 
 chain = GraphCypherQAChain.from_llm(
-    ChatOpenAI(model="gpt-3.5-turbo", temperature=0, max_tokens=75),
+    ChatOpenAI(model="gpt-4", temperature=0, max_tokens=75),
     graph=graph,
     verbose=True,
     top_k=1,
